@@ -13,6 +13,9 @@ $(document).ready(function() {
         gdp_data = gdp_data.data;
         
   
+        var info = function(info) {
+            console.log("Date: " + info[0] + " GDP: " + info[1]);
+        }
         
         //Set up the chart on the page
         var w = 1000;
@@ -42,6 +45,21 @@ $(document).ready(function() {
         var x = d3.scaleLinear()
             .domain([0, gdp_data.length])
             .range([0, width]);
+        
+
+        var yearScale = d3.scaleTime()
+            .domain([new Date("1947"), new Date("2015")])
+            .range([0, width]);
+
+        
+        var yAxis = d3.axisLeft(y);
+        var xAxis = d3.axisBottom(yearScale);
+        
+        
+
+        
+        
+      
         
 
 
@@ -74,19 +92,23 @@ $(document).ready(function() {
                 })
                 .attr("height", function(d, i) {
                     return height - y(d[1]);
-                });
+                })
+                .on("mouseover", function(d, i) {
+                    info(d);
+                })
+                
         
         //Add the x axis to the chart as a separate "g" group
         chart.append("g")
             .classed("xAxis", true)
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .call(xAxis);
         
         //Add the y axis to the chart as a separate "g" group
         chart.append("g")
             .classed("yAxis", true)
             .attr("transform", "translate(0,0)")
-            .call(d3.axisLeft(y));
+            .call(yAxis);
         
     }); //End GET request
     
