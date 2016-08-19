@@ -15,8 +15,21 @@ $(document).ready(function() {
   
         
         //Set up the chart on the page
-        var w = 800;
+        var w = 1000;
         var h = 450;
+        
+        //Set chart margins
+        //Virtually we shift the chart up and to the left when setting the y and x ranges
+        //Then when we translate the chart it moves it down and to the right leaving us some margin to work with
+        var margin = {
+            top: 20,
+            bottom: 30,
+            right: 20,
+            left: 50
+        }
+        
+        var width = w - margin.left - margin.right;
+        var height = h - margin.top - margin.bottom;
         
         //Axis
         //Flip y axix so that range starts at h and goes to 0 (bottom to top)
@@ -24,24 +37,28 @@ $(document).ready(function() {
             .domain([0, d3.max(gdp_data, function(d) {
                 return d[1];
             })])
-            .range([h, 0]);
+            .range([height, 0]);
         
         var x = d3.scaleLinear()
             .domain([0, gdp_data.length])
-            .range([0, w]);
+            .range([0, width]);
         
 
 
-        
         //Append an SVG tag to the page
         var svg = d3.select("body").append("svg")
-            .attr("id", "chart")
-            .attr("width", w)
-            .attr("height", h);
+                .attr("id", "chart")
+                .attr("width", w)
+                .attr("height", h);
+                
         
+        var chart = svg.append("g")
+            .classed("display", true)
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    
         
         //Select and create "bar" class and bind a bar to each piece of data that we have
-        svg.selectAll(".bar")
+        chart.selectAll(".bar")
             .data(gdp_data)
             .enter()
                 .append("rect")
@@ -56,17 +73,35 @@ $(document).ready(function() {
                     return x(1);
                 })
                 .attr("height", function(d, i) {
-                    return h - y(d[1]);
-
-                })
+                    return height - y(d[1]);
+                });
         
+        //Add the x axis to the chart as a separate "g" group
+        chart.append("g")
+            .classed("xAxis", true)
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        
+        //Add the y axis to the chart as a separate "g" group
+        chart.append("g")
+            .classed("yAxis", true)
+            .attr("transform", "translate(0,0)")
+            .call(d3.axisLeft(y));
         
     }); //End GET request
     
     
     
-    
-    
+//    var svg = d3.select("body").append("svg")
+//                .attr("id", "chart")
+//                .attr("width", w)
+//                .attr("height", h)
+//                .classed("axis", true)
+//            .append("g")
+//                .classed("display", true)
+//                .attr("transform", "translate(0,400)")
+//                .call(d3.axisBottom(x));
+//    
     
 
 
