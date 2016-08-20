@@ -19,16 +19,16 @@ $(document).ready(function() {
         
         //Set up the chart on the page
         var w = 1000;
-        var h = 450;
+        var h = 650;
         
         //Set chart margins
         //Virtually we shift the chart up and to the left when setting the y and x ranges
         //Then when we translate the chart it moves it down and to the right leaving us some margin to work with
         var margin = {
-            top: 20,
-            bottom: 30,
-            right: 20,
-            left: 50
+            top: 75,
+            bottom: 75,
+            right: 50,
+            left: 75
         }
         
         var width = w - margin.left - margin.right;
@@ -95,6 +95,10 @@ $(document).ready(function() {
                 })
                 .on("mouseover", function(d, i) {
                     info(d);
+                    d3.select(this).attr("class", "active_bar");
+                })
+                .on("mouseout", function(d, i) {
+                    d3.select(this).attr("class", "bar");
                 })
                 
         

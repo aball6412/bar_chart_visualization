@@ -19,3 +19,15 @@ body {
     font-size: 24px;
     text-anchor: end;
 }
+
+.yAxis {
+    font-size: 15px;
+}
+
+.xAxis {
+    font-size: 15px;
+}
+
+.active_bar {
+    fill: purple;
+}
