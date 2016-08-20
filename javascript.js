@@ -26,7 +26,7 @@ $(document).ready(function() {
         //Then when we translate the chart it moves it down and to the right leaving us some margin to work with
         var margin = {
             top: 75,
-            bottom: 75,
+            bottom: 125,
             right: 50,
             left: 75
         }
@@ -113,6 +113,47 @@ $(document).ready(function() {
             .classed("yAxis", true)
             .attr("transform", "translate(0,0)")
             .call(yAxis);
+        
+        //Add chart labels and titles
+        chart.select(".yAxis")
+            .append("text")
+            .attr("x", 0)
+            .attr("y", 0)
+            .style("text-anchor", "middle")
+            .style("fill", "black")
+            .attr("transform", "translate(20,105) rotate(-90)")
+            .text("Gross Domestic Product, USA");
+        
+        chart.select(".xAxis")
+            .append("text")
+            .attr("x", 0)
+            .attr("y", 0)
+            .style("text-anchor", "middle")
+            .style("fill", "black")
+            .style("font-size", "12")
+            .attr("transform", "translate(" + width/2 + "," + margin.bottom/2 + ")")
+            .text("Units: Billions of Dollars Seasonal Adjustment: Seasonally Adjusted Annual Rate Notes: A Guide to the National Income and Product Accounts of the United States (NIPA) - ");
+        
+        //Make second half of long text
+        chart.select(".xAxis")
+            .append("text")
+            .attr("x", 0)
+            .attr("y", 0)
+            .style("text-anchor", "middle")
+            .style("fill", "black")
+            .style("font-size", "12")
+            .attr("transform", "translate(" + width/2 + "," + (margin.bottom/2 + 14) + ")")
+            .text("(http://www.bea.gov/national/pdf/nipaguid.pdf)");
+        
+        chart.select(".yAxis")
+            .append("text")
+            .attr("x", 0)
+            .attr("y", 0)
+            .style("text-anchor", "middle")
+            .style("fill", "black")
+            .style("font-size", "40")
+            .attr("transform", "translate(" + width/2 + ",0)")
+            .text("Gross Domestic Product");
         
     }); //End GET request
     
