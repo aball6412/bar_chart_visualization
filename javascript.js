@@ -14,7 +14,12 @@ $(document).ready(function() {
         
   
         var info = function(info) {
-            console.log("Date: " + info[0] + " GDP: " + info[1]);
+            //console.log("Date: " + info[0] + " GDP: " + info[1]);
+
+//            
+//            var date = new Date(info[0]);
+//            console.log(date.getFullYear());
+//            console.log(date.getMonth());
         }
         
         //Set up the chart on the page
@@ -56,7 +61,12 @@ $(document).ready(function() {
         var xAxis = d3.axisBottom(yearScale);
         
         
-
+        //Append tooltip to the page
+        var div = d3.select(".holder").append("div")
+            .classed("tooltip", true)
+            .style("opacity", "0")
+            .style("height", "20")
+            .html("GDP/Date");
         
         
       
@@ -95,10 +105,21 @@ $(document).ready(function() {
                 })
                 .on("mouseover", function(d, i) {
                     info(d);
+
+                    //Change color of bar user if hovering over
                     d3.select(this).attr("class", "active_bar");
+                    //Show the tooltip
+                    d3.select(".tooltip")
+                        .style("opacity", ".9")
+                        .html("<h5>$" + d[1] + " Billion</h5><h5>" + d[0] + "</h5>");
+                
+
                 })
                 .on("mouseout", function(d, i) {
+                    //Change color of bar back to normal once user no longer hovering
                     d3.select(this).attr("class", "bar");
+                    //Hide the tooltip
+                    d3.select(".tooltip").style("opacity", "0");
                 })
                 
         

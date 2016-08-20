@@ -1,5 +1,7 @@
 body {
     border: solid;
+    border-color: red;
+
 }
 
 #chart {
@@ -10,6 +12,15 @@ body {
     margin-right: auto;
     margin-bottom: 50px;
     margin-top: 50px;
+}
+
+.tooltip {
+    border: solid;
+    position: absolute;
+}
+
+.no_show {
+    display: none;
 }
 
 .bar {
