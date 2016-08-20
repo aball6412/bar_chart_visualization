@@ -1,12 +1,15 @@
 body {
-    border: solid;
-    border-color: red;
+
+    background: #d1d9db;
+
 
 }
 
 #chart {
     border: solid;
+    background: #FFFFFF;
     border-width: 1px;
+    box-shadow: 0px 0px 20px 2px #888888;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -15,8 +18,13 @@ body {
 }
 
 .tooltip {
-    border: solid;
+    border: none;
+    border-radius: 10px;
+    padding: 3px;
+    background: #587e88;
+    color: #FFFFFF;
     position: absolute;
+
 }
 
 .no_show {
@@ -24,7 +32,9 @@ body {
 }
 
 .bar {
-
+    /*fill: #587e88;*/
+    fill: #2b2e3b;
+    shape-rendering: crispEdges;
 }
 
 .bar-label {
@@ -42,5 +52,5 @@ body {
 }
 
 .active_bar {
-    fill: purple;
+    fill: #587e88;
 }

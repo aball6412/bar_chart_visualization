@@ -22,6 +22,38 @@ $(document).ready(function() {
 //            console.log(date.getMonth());
         }
         
+        var return_month = function(month) {
+            
+            switch (month) {
+                case 0:
+                    return "January";
+                case 1:
+                    return "February";
+                case 2:
+                    return "March";
+                case 3:
+                    return "April";
+                case 4:
+                    return "May";
+                case 5:
+                    return "June";
+                case 6:
+                    return "July";
+                case 7:
+                    return "August";
+                case 8:
+                    return "September";
+                case 9:
+                    return "October";
+                case 10:
+                    return "November";
+                case 11:
+                    return "December";
+            }
+            
+        }
+        
+        
         //Set up the chart on the page
         var w = 1000;
         var h = 650;
@@ -105,13 +137,19 @@ $(document).ready(function() {
                 })
                 .on("mouseover", function(d, i) {
                     info(d);
-
+                    //Set up needed variables
+                    var date = new Date(d[0]);
+                    var year = date.getFullYear();
+                    var month = return_month(date.getMonth());
+            
                     //Change color of bar user if hovering over
                     d3.select(this).attr("class", "active_bar");
                     //Show the tooltip
                     d3.select(".tooltip")
                         .style("opacity", ".9")
-                        .html("<h5>$" + d[1] + " Billion</h5><h5>" + d[0] + "</h5>");
+                        .style("left", (d3.event.pageX) + 5 + "px")
+                        .style("top", (d3.event.pageY) - 72 + "px")
+                        .html("<h5>$" + d[1] + " Billion</h5><p>" + month + " - " + year + "</p>");
                 
 
                 })
